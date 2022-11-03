@@ -19,12 +19,13 @@ def read_file(nombre_del_archivo):
                     lista.append(float(datos[i]))
             diccionario[claves[i]] = lista
     return diccionario
-
+diccionario = read_file('Trabajo-Practico-2/bolsa.csv')    
 def monthly_average(accion, diccionario):
     lista_sinrepetir = []
     lista_anos = []
     diccionario.get(accion)
     dias = diccionario.get('Date')
+    promedios = []
     for x, i in enumerate(dias):
         date = dias[x].split('-')
         lista_anos.append(date[0] + date[1])
@@ -39,8 +40,32 @@ def monthly_average(accion, diccionario):
             suma = sum(lista_promedio)
             largo = len(lista_promedio)
         resultado = suma / largo
-        print(resultado)
+        resultado = str(resultado)
+        promedios.append(resultado)
         
-prueba = monthly_average('SATL', read_file('PRACTICAS/bolsa.csv'))
-with open('monthly_average_SATL.csv', 'w') as archivo:
-    archivo.write(prueba)
+    with open('monthly_average_SATL.csv', 'w') as ejercicio_3:
+        for promedio in promedios:
+            ejercicio_3.write(promedio)
+    
+monthly_average('SATL', diccionario)
+
+def max_gain(nombre_accion, diccionario, fecha_venta):
+    precio = 0
+    valor_max = 0
+    maximos_anteriores = []
+    posicion = 0
+    for i, fechas in enumerate(diccionario['Date']):
+        if fechas == fecha_venta:
+            for x, valores in enumerate(diccionario[nombre_accion]):
+                if x == i:
+                    precio = valores
+                    for d, precios in enumerate(diccionario[nombre_accion]):
+                        if d <= x:
+                            maximos_anteriores.append(precios)
+                            valor_max = max(maximos_anteriores)
+                            posicion =maximos_anteriores.index(valor_max)
+    dia_optimo = diccionario['Date'][posicion]                  
+    return dia_optimo
+
+    
+max_gain('MELI', diccionario, '2021-10-12')
