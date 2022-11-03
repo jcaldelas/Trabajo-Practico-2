@@ -48,7 +48,6 @@ def monthly_average(accion, diccionario):
             ejercicio_3.write(promedio)
     
 monthly_average('SATL', diccionario)
-
 def max_gain(nombre_accion, diccionario, fecha_venta):
     precio = 0
     valor_max = 0
@@ -64,7 +63,8 @@ def max_gain(nombre_accion, diccionario, fecha_venta):
                             maximos_anteriores.append(precios)
                             valor_max = max(maximos_anteriores)
                             posicion =maximos_anteriores.index(valor_max)
-    dia_optimo = diccionario['Date'][posicion]                  
+    dia_optimo = diccionario['Date'][posicion] 
+    print(dia_optimo)                 
     return dia_optimo
 
     
