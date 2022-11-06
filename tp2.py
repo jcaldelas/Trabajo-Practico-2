@@ -57,15 +57,20 @@ def max_gain(nombre_accion, diccionario, fecha_venta):
         if fechas == fecha_venta:
             for x, valores in enumerate(diccionario[nombre_accion]):
                 if x == i:
-                    precio = valores
+                    precio = valores          
                     for d, precios in enumerate(diccionario[nombre_accion]):
                         if d <= x:
                             maximos_anteriores.append(precios)
                             valor_max = max(maximos_anteriores)
                             posicion =maximos_anteriores.index(valor_max)
     dia_optimo = diccionario['Date'][posicion] 
+    precio_venta2 = diccionario[nombre_accion][posicion]
+    print(precio_venta2)
     print(dia_optimo)                 
     return dia_optimo
 
     
-max_gain('MELI', diccionario, '2021-10-12')
+max_gain('MELI', diccionario, '2021-06-06')
+
+def report_max_gains(diccionario, fecha_venta):
+    fecha = input('Ingresar fecha en formato AÑO-MES-DIA: ')
