@@ -40,7 +40,6 @@ diccionario = read_file('Trabajo-Practico-2/bolsa.csv')
 def monthly_average(accion, diccionario):
     lista_sinrepetir = []
     lista_anos = []
-    diccionario.get(accion)
     dias = diccionario.get('Date')
     promedios = []
     for x, i in enumerate(dias):
