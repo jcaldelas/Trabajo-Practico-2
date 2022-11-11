@@ -35,6 +35,7 @@ def read_file(nombre_del_archivo):
                     lista.append(float(datos[i]))
             diccionario[claves[i]] = lista
     return diccionario
+    3
 diccionario = read_file('Trabajo-Practico-2/bolsa.csv')    
 
 def monthly_average(accion, diccionario):
@@ -56,7 +57,6 @@ def monthly_average(accion, diccionario):
         suma = sum(lista_promedio)
         largo = len(lista_promedio)
         resultado = suma / largo
-        promedios = promedios
         promedios.append(resultado)
     
     return lista_sinrepetir, promedios
@@ -88,7 +88,8 @@ def max_gain(nombre_accion, diccionario, fecha_venta):
     precio_venta = diccionario[nombre_accion][indice_precio_venta]
     ganancia = (precio_venta - precio_compra) / precio_compra
     return ganancia, dia_optimo
-max_gain('MELI', diccionario, '2022-06-06')
+    
+max_gain('RTX', diccionario, '2022-06-06')
 
 
 def report_max_gains(diccionario, fecha_venta):
@@ -104,6 +105,7 @@ def report_max_gains(diccionario, fecha_venta):
                 info = str(acciones[l]) + ' genera una ganancia de ' + str(list(max)[0]) + '% habiendo comprado en ' + str(list(max)[1]) + ' y vendiendose en ' + str(fecha_venta)
                 archivo.write(info + '\n')
                 l += 1
+
 report_max_gains(diccionario, '2022-06-06')
 
 def plot_price(nombre_accion, diccionario, start = '2021-10-04', end = '2022-09-28'):
@@ -112,23 +114,26 @@ def plot_price(nombre_accion, diccionario, start = '2021-10-04', end = '2022-09-
     x_data = str2datetime(diccionario["Date"])[idx_start:idx_end]
     y_data = diccionario[nombre_accion][idx_start: idx_end]
     plt.plot(x_data, y_data, 'g')
-    plt.savefig(f'price_{nombre_accion}.png')
-    plt.title(f'Graficos de precio de la acción {nombre_accion}')
+    plt.title(f'GRÁFICO DE PRECIOS DE LA ACCIÓN {nombre_accion}')
     plt.xlabel('Fechas')
     plt.ylabel('Precios')
     plt.grid(True)
+    plt.savefig(f'price_{nombre_accion}.png')
     plt.show()
 
+plot_price('RTX', diccionario, '2021-10-22', '2022-01-11')
 
 def monthly_average_bar_plot(nombre_accion, diccionario):
     fechas, promedios = monthly_average(nombre_accion, diccionario)
     plt.bar(fechas, promedios)
-    plt.savefig('monthly_average_bar_plot_XXX.png”.')
-    plt.title('GRÁFICO DE BARRAS PROMEDIO MES A MES')
+    plt.title(f'GRÁFICO DE BARRAS PROMEDIO MES A MES ACCIÓN {nombre_accion}')
     plt.xlabel('Año / Mes')
     plt.ylabel('Promedios')
     plt.grid(alpha=0.4, ls=':')
+    plt.savefig('monthly_average_bar_plot_XXX.png”.')
     plt.show()
+
+monthly_average_bar_plot('RTX', diccionario)
 
 def plot_max_gains(diccionario, fecha_venta):
     acciones = list(diccionario.keys())
@@ -137,20 +142,12 @@ def plot_max_gains(diccionario, fecha_venta):
     for accion in acciones: 
         ganancia, dia_optimo = max_gain(accion, diccionario, fecha_venta)
         lista_y.append(ganancia)
-    
-        
-    print(lista_y)
+
     plt.bar(acciones, lista_y)
-    plt.savefig('max_gains.png”.')
-    plt.title('Gráfico de la mejor inversión por acción')
+    plt.title('GRÁFICO DE LA MEJOR INVERSIÓN POR ACCIÓN')
     plt.ylabel('Ganancia mejor inversión')
     plt.grid(alpha=0.4, ls=':')
+    plt.savefig('max_gains.png')
     plt.show()
          
-       
-
 plot_max_gains(diccionario, '2022-06-06')
-
-
-
-
